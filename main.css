@@ -1,0 +1,679 @@
+/* ===== Variabler ===== */
+/* Byt accentfärgen på ett ställe för att ändra hela sidans utseende */
+:root {
+    --bg: #0b0f14;
+    --surface: #121922;
+    --surface-2: #1a2430;
+    --border: #2a3846;
+    --text: #e6edf3;
+    --muted: #9db0c2;
+    --accent: #5eead4;
+    --accent-dim: rgba(94, 234, 212, 0.14);
+    --header: #2f4f4f;
+    --radius: 12px;
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* ===== Grund ===== */
+* {
+    box-sizing: border-box;
+}
+
+/* Fast bredd över 1200px, flödande under */
+body {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    clear: both;
+    margin: 1.2em 0 0.5em;
+    font-family: "Consolas", "Courier New", monospace;
+    line-height: 1.25;
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    letter-spacing: 0.08em;
+}
+
+h2 {
+    color: var(--accent);
+    font-size: 1.4rem;
+    letter-spacing: 0.04em;
+}
+
+h3 {
+    color: var(--accent);
+    font-size: 1.15rem;
+}
+
+h4 {
+    font-size: 1.05rem;
+}
+
+p {
+    margin: 0 0 1em;
+}
+
+hr {
+    margin: 1rem 0;
+    border: 0;
+    border-top: 1px solid var(--border);
+}
+
+/* ===== Länkar ===== */
+a:link {
+    color: var(--accent);
+}
+
+a:visited {
+    color: #b9aaff;
+}
+
+a:hover {
+    color: #ffffff;
+}
+
+/* ===== Header och navigering ===== */
+header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background-color: var(--header);
+    background-image: linear-gradient(135deg, #2f4f4f, #1b2f33);
+    box-shadow: var(--shadow);
+    margin-bottom: 1rem;
+}
+
+/* Rubriken hamnar först oavsett ordningen i HTML */
+header h1 {
+    order: -1;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+nav a {
+    flex: 1 1 auto;
+    padding: 0.5em 1em;
+    border-radius: 8px;
+    text-align: center;
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+nav a:link,
+nav a:visited {
+    color: var(--text);
+    text-decoration: none;
+}
+
+nav a:hover,
+nav a[aria-current="page"] {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* ===== Layout ===== */
+main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+}
+
+/* Innehållsboxar */
+main > section,
+main > aside,
+main > article,
+main > details,
+body > section,
+body > aside {
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background-color: var(--surface);
+    box-shadow: var(--shadow);
+}
+
+main > details {
+    align-self: start;
+    padding: 0;
+}
+
+main > section > :first-child,
+main > aside > :first-child,
+main > article > :first-child,
+body > section > :first-child,
+body > aside > :first-child {
+    margin-top: 0;
+}
+
+main > section > :last-child,
+main > aside > :last-child,
+main > article > :last-child,
+body > section > :last-child,
+body > aside > :last-child {
+    margin-bottom: 0;
+}
+
+/* Avskiljare mellan artiklar inuti en box */
+section > article + article,
+aside > article + article {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+section > article > :first-child,
+aside > article > :first-child {
+    margin-top: 0;
+}
+
+/* Rubriker som spänner över hela historiksidan */
+.education-main > h2 {
+    text-align: center;
+}
+
+/* Sidfoten (inte footer inuti blockquote) */
+body > footer {
+    margin-top: 1rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background-color: var(--surface);
+    color: var(--muted);
+    text-align: center;
+}
+
+address {
+    font-style: normal;
+    line-height: 1.8;
+}
+
+code {
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    background-color: var(--surface-2);
+    color: var(--accent);
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 0.95em;
+}
+
+pre {
+    margin: 1rem 0;
+    padding: 1rem;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: #080b0f;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+pre code {
+    padding: 0;
+    background: none;
+    color: inherit;
+}
+
+blockquote {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    background-color: var(--surface-2);
+}
+
+blockquote p {
+    margin: 0;
+    font-style: italic;
+}
+
+blockquote footer {
+    margin-top: 0.5rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+ul,
+ol {
+    padding-left: 1.4rem;
+}
+
+ul {
+    list-style: circle;
+}
+
+ol {
+    list-style: square;
+}
+
+li {
+    margin: 0.35rem 0;
+}
+
+dt {
+    margin-top: 1em;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+dd {
+    margin: 0.2em 0 0 2em;
+}
+
+/* ===== Bild, ljud och video ===== */
+img,
+video {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+audio {
+    width: 100%;
+}
+
+figure {
+    margin: 1rem 0;
+    text-align: center;
+}
+
+figcaption {
+    margin-top: 0.4rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.text-image {
+    float: left;
+    max-width: 40%;
+    margin: 0 1em 1em 0;
+}
+
+/* ===== Detaljer ===== */
+details {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background-color: var(--surface-2);
+}
+
+main > details {
+    background-color: var(--surface);
+}
+
+summary {
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    color: var(--accent);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+summary:hover {
+    background-color: var(--accent-dim);
+}
+
+details > :not(summary) {
+    margin: 1rem;
+}
+
+/* ===== Formulär ===== */
+form {
+    display: grid;
+    gap: 1rem;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background-color: var(--surface-2);
+    font: inherit;
+}
+
+fieldset {
+    margin: 0;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+legend {
+    padding: 0 0.5rem;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+label {
+    color: var(--muted);
+}
+
+.form-group {
+    display: grid;
+    gap: 0.35rem;
+    margin-bottom: 0.75rem;
+}
+
+.form-group-button {
+    display: flex;
+    flex-wrap: wrap;
+    grid-column: 1 / -1;
+    align-items: center;
+    justify-self: end;
+    gap: 0.75rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="number"],
+input[type="password"],
+input[type="date"],
+input[type="time"],
+textarea,
+select {
+    padding: 0.6em 0.8em;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background-color: #0d1319;
+    color: var(--text);
+    font: inherit;
+    transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+/* Ikon längst till vänster i mailfältet */
+input[type="email"] {
+    padding-left: 32px;
+    background-image: url("lib/email-icon.png");
+    background-position: 8px center;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+}
+
+textarea {
+    resize: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--accent);
+    background-color: #1f2f3d;
+    box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    accent-color: var(--accent);
+}
+
+/* Knappar (ligger efter fokusregeln så att de behåller sin färg) */
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+    padding: 0.55em 1.1em;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    background-color: var(--accent);
+    color: #0b0f14;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    background-color: #99f6e4;
+}
+
+input[type="reset"] {
+    background-color: transparent;
+    color: var(--accent);
+}
+
+input[type="reset"]:hover {
+    background-color: var(--accent-dim);
+}
+
+button:focus {
+    box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+/* ===== Tabeller ===== */
+table {
+    width: 100%;
+    margin: 0.5rem 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+caption {
+    padding: 0.5rem 0;
+    color: var(--accent);
+    font-weight: bold;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+th {
+    background-color: rgba(94, 234, 212, 0.12);
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+tbody tr:hover {
+    background-color: rgba(94, 234, 212, 0.08);
+}
+
+tfoot td {
+    background-color: rgba(255, 255, 255, 0.05);
+    font-weight: bold;
+}
+
+/* Färgade betygskolumner (genomskinliga så att texten förblir ljus) */
+.grade-column-uni {
+    background-color: rgba(127, 255, 212, 0.12);
+}
+
+.grade-column-gymnasiet {
+    background-color: rgba(255, 255, 153, 0.12);
+}
+
+/* ===== Trailer-sidan ===== */
+/* Videon täcker hela fönstret */
+#tillSlutetTrailer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    border-radius: 0;
+    z-index: 1;
+}
+
+/* Innehåll längst ner över videon */
+.content {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    left: 0;
+    background-color: rgba(11, 15, 20, 0.7);
+    color: #f1f1f1;
+    z-index: 2;
+}
+
+/* Knapp för att pausa och spela videon */
+#myBtn {
+    width: 200px;
+    font-size: 1.1rem;
+}
+
+
+
+/* ===== Desktop (från 1024px) ===== */
+@media (min-width: 1024px) {
+    body {
+        padding: 1.5rem;
+    }
+
+    /* Rubrik till vänster och navigering till höger */
+    header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    header h1 {
+        text-align: left;
+    }
+
+    nav a {
+        flex: 0 0 auto;
+    }
+
+    .home-main {
+        grid-template-columns: 2fr 1fr;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+    nav a:hover,
+    nav a[aria-current="page"] {
+        transform: none;
+    }
+}
+
+/* Övergång mellan separata HTML-sidor */
+@media (prefers-reduced-motion: no-preference) {
+    @view-transition {
+        navigation: auto;
+    }
+}
+
+/* Styr hastigheten på hela övergången */
+::view-transition-group(root) {
+    animation-duration: 0.2s;
+}
+
+/* Tona ut den gamla sidan */
+::view-transition-old(root) {
+    animation: fade-out 0.2s ease-in both;
+}
+
+/* Tona in den nya sidan */
+::view-transition-new(root) {
+    animation: fade-in 0.2s ease-out both;
+}
+
+@keyframes fade-out {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+#volumeSlider {
+    width: 150px;
+    vertical-align: middle;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+.content label {
+    margin-left: 12px;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+@media print {
+    :root {
+        --bg: #fff; --surface: #fff; --surface-2: #f3f3f3;
+        --border: #ccc; --text: #000; --muted: #333;
+        --accent: #0b5c52; --shadow: none;
+    }
+    header { background: none; }
+    nav, video, button { display: none; }
+    a:link, a:visited { color: var(--accent); }
+    body { max-width: none; }
+}
+
+.hp {
+    position: absolute;
+    left: -9999px;
+}
+
+.screenshots {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+    align-items: start;
+}
+
+.screenshots figure {
+    grid-column: span 2;
+    margin: 0;
+}
+
+.screenshots figure:nth-child(4) {
+    grid-column: 2 / span 2;
+}
+
+.screenshots img {
+    display: block;
+    max-width: 220px;
+    margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+    .screenshots {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .screenshots figure,
+    .screenshots figure:nth-child(4) {
+        grid-column: auto;
+    }
+}

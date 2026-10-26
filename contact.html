@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Nils Wiberg">
+        <meta name="description" content="Contact Nils Wiberg.">
+        <link rel="stylesheet" href="main.css">
+
+        <title>Contact</title>
+
+    </head>
+    <body>
+        <header>
+            <h1>Contact</h1>
+            <nav>
+                <a href="home.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="previousWork.html">Previous work</a>
+                <a href="contact.html" aria-current="page">Contact</a>
+            </nav>
+        </header>
+
+        <main class="contact-main">
+            <div class="sidebar">
+                
+                <h2>Contact me</h2>
+                <p>Fill in this form and I'll be able to get back to you</p>
+                <form id="contactForm">                    
+                    <fieldset>
+                        <legend>Your contact information</legend>
+                        <div class="hp" aria-hidden="true">
+                            <label for="company">Leave this field empty</label>
+                            <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="fname">First name </label>
+                            <input type="text" id="fname" name="fname" placeholder="John" 
+                            pattern="[\p{L}\-' ]{2,}"
+                            title="Enter a name with at least 2 letters"
+                            required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lname">Last name </label>
+                            <input type="text" id="lname" name="lname" placeholder="Doe" 
+                            pattern="[\p{L}\-' ]{2,}"
+                            title="Enter a name with at least 2 letters"
+                            required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Mail address </label>
+                            <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="website">Website </label>
+                            <input type="url" id="website" name="website" list="siteSuggestions" placeholder="https://www.mycompany.com">
+                            <datalist id="siteSuggestions">
+                                <option value="https://github.com/">Github</option>
+                                <option value="https://facebook.com/">Facebook</option>
+                                <option value="https://x.com/">X</option>
+                                <option value="https://linkedin.com/">Linkedin</option>
+                            </datalist>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Your message</legend>
+                        <div class="form-group">
+                            <label for="subject">Subject </label>
+                            <select id="subject" name="subject">
+                                <option value="job">Job</option>
+                                <option value="internship">Internship</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message"></textarea>
+                        </div>
+                    </fieldset>
+                    <div class="form-group-button">
+                        <input type="reset">
+                    </div>
+                    <div class="form-group-button">
+                        <input type="submit">
+                    </div>
+                    <p id="formStatus" role="status"></p>
+                </form>
+
+                <h2>Find me elsewhere</h2>
+                <ol>
+                    <li><a href="https://github.com/Nils-mega-hacker">GitHub</a></li>
+                    <li><a href="https://www.linkedin.com/in/nils-wiberg-400b511a1/">LinkedIn</a></li>
+                </ol>
+            </div>
+        </main>
+        <footer>
+            <address>
+                Address: Nissastigen 37, 128 41 Bagarmossen <br>
+                Tel: <a href="tel:+46708387383">+46708387383</a><br>
+                Mail: <a href="mailto:nilsjohan00@hotmail.com">nilsjohan00@hotmail.com</a></address>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+        <script src="contact.js"></script>
+    </body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Nils Wiberg">
+        <meta name="description" content="Nils Wiberg - student in computer science. About me, skills and code examples.">
+        <link rel="stylesheet" href="main.css">
+        <title>Home</title>
+
+    </head>
+    <body>
+        <header>
+            <h1>Nils Wiberg</h1>
+            <nav>
+                <a href="home.html" aria-current="page">Home</a>
+                <a href="education.html">Education</a>
+                <a href="previousWork.html">Previous work</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </header>
+        <main class="home-main">
+
+            <section>
+                <h2>About Me</h2>
+                <p>Hi there! My name is Nils Wiberg, I'm an ambitious, creatively driven 26-year-old from Stockholm currently studying the third year of the Bachelor's Programme in Computer Science at Stockholm University.</p>
+                <article>
+                    <h3>Way of Working</h3>
+                    <p>I enjoy learning new things, and I always try to find the most efficient solution both in my work life and everyday life. Whether it's finding the right data structure or brushing my teeth in the shower, I'm very motivated by making things more efficient.</p>
+                    <blockquote>
+                        <p>"Efficiency, efficiency, efficiency"</p>
+                        <footer>— Bill Hader, Brooklyn Nine-Nine</footer>
+                    </blockquote>
+                    <figure>
+                        <picture>
+                            <source media="(min-width: 10px)" srcset="lib/Efficiency_dator.gif">
+                            <img src="lib/Efficiency_mobil.gif" alt="Bill Hader in Brooklyn Nine-Nine">
+                        </picture>
+                    </figure>
+                </article>
+            </section>
+            <aside>
+                <article>
+                    <h3>Me as a Person</h3>
+                    <p>I would describe myself as a very positive person, I often see challenges where others see difficulties, and opportunities where others see chaos. I enjoy making the most of life and don't take myself too seriously, with the mindset that life is here for us to enjoy.</p>
+                </article>
+
+                <article>
+                    <h3>Group-Based Project Work</h3>
+                    <p>After my studies and having worked in the film industry, project-based work comes very naturally to me, as does knowing how to collaborate most effectively in a group.</p>
+                </article>
+
+                <article>
+                    <h3>Free Time</h3>
+                    <p>In my free time I enjoy watching movies, playing video games, and spending quality time with my friends and family. I almost always have some event I'm in the process of planning for my friends.</p>
+                </article>
+            </aside>
+
+            <section>
+                    <h2>Code examples</h2>
+                    <h3>Red-black tree</h3>
+                    <p>During my studies I have written a lot of code and have learned much of what works and what doesn't, and how to make your code more efficient. I have for instance constructed a top Down red-black tree, where you sometimes need to do a so called double rotation: </p>
+<pre><code>private RedBlackNode&lt;AnyType&gt; fixDoubleBlackLeft(RedBlackNode&lt;AnyType&gt; node, RedBlackNode&lt;AnyType&gt; parent) {
+	RedBlackNode&lt;AnyType&gt; sibling = parent.right;
+
+	if (sibling.color == RED) {
+		sibling.color = BLACK;
+		parent.color = RED;
+		rotateLeft(parent, findParent(parent));
+		sibling = parent.right;
+	}
+    if (sibling.left.color == BLACK &amp;&amp; sibling.right.color == BLACK) {
+		sibling.color = RED;
+		return parent;
+	}
+    if (sibling.right.color == BLACK) {
+		sibling.left.color = BLACK;
+		sibling.color = RED;
+		rotateRight(sibling, parent);
+		sibling = parent.right;
+	}
+
+	sibling.color = parent.color;
+	parent.color = BLACK;
+	sibling.right.color = BLACK;
+	rotateLeft(parent, findParent(parent));
+	return header.right;
+}</code></pre>
+
+                <h3>Closest points calculator(Java)</h3>
+                <p>Implemented a divide-and-conquer algorithm in Java to find the closest pair of points in a 2D point set, using recursive splitting, a brute-force base case, and a y-sorted strip check across the dividing line. Significantly faster than the naive O(n²) approach.</p>
+<pre><code>
+public class ClosestPointsCalculator {
+    private static final int BRUTE_FORCE_THRESHOLD = 4;
+
+    public static Point[] findClosestPairOfPoints(Point[] points) {
+       Arrays.sort(points, Comparator.comparingInt(Point::x));
+       if (points.length <= BRUTE_FORCE_THRESHOLD) {
+          return bruteForce(points);
+       }
+       return divideAndConquer(points);
+    }
+
+    private static Point[] divideAndConquer(Point[] points) {
+       int mid = points.length / 2;
+       Point[] leftBest = findClosestPairOfPoints(Arrays.copyOfRange(points, 0, mid));
+       Point[] rightBest = findClosestPairOfPoints(Arrays.copyOfRange(points, mid, points.length));
+       double leftDist = leftBest[0].distanceTo(leftBest[1]);
+       double rightDist = rightBest[0].distanceTo(rightBest[1]);
+       Point[] currentBest = leftDist < rightDist ? leftBest : rightBest;
+       double d = Math.min(leftDist, rightDist);
+       return stripClosest(points, points[mid].x(), d, currentBest);
+    }
+
+    private static Point[] stripClosest(Point[] points, int midX, double d, Point[] currentBest) {
+       List<Point> strip = new ArrayList<>();
+       for (Point p : points) {
+          if (Math.abs(p.x() - midX) < d) {
+             strip.add(p);
+          }
+       }
+       strip.sort(Comparator.comparingInt(Point::y));
+       for (int i = 0; i < strip.size(); i++) {
+          for (int j = i + 1; j < strip.size(); j++) {
+             if (strip.get(j).y() - strip.get(i).y() >= d) break;
+             double dist = strip.get(i).distanceTo(strip.get(j));
+             if (dist < d) {
+                d = dist;
+                currentBest = new Point[]{strip.get(i), strip.get(j)};
+             }
+          }
+       }
+       return currentBest;
+    }
+
+    private static Point[] bruteForce(Point[] points) {
+       Point[] best = {points[0], points[1]};
+       for (int i = 0; i < points.length; i++) {
+          for (int j = i + 1; j < points.length; j++) {
+             if (points[i].distanceTo(points[j]) < best[0].distanceTo(best[1])) {
+                best[0] = points[i];
+                best[1] = points[j];
+             }
+          }
+       }
+       return best;
+    }
+}
+</code></pre>
+                <h3>Cash register system for testing</h3>
+                <p>Designed and implemented JUnit 5 unit tests for a Java point-of-sale system covering cash and card payments, memberships, bonus points and deductors (gift cards, discounts). Derived test cases from a state machine model and added supplementary tests to reach 100% code coverage, including exception handling and boundary cases.</p>
+<pre><code>
+@Test
+public void noDeductorPayWithCashCustomerIsMember(){
+    ArrayList <Item> tempShoppingCart = new ArrayList<>();
+    Customer customer = new Customer("Marko Olio", "650816-1236", "+46708817385", "markoolio@live.se");
+    customer.setMembership(new Membership());
+    List<Integer> denominators = new ArrayList<>(List.of(
+            1, 1, 2, 2, 5, 5, 10, 10, 20, 20, 50, 50, 100, 100, 200, 200, 500, 500, 1000, 1000
+    ));
+    CashRegister cr = new CashRegister(denominators);
+    Currency SEK = createSEK();
+
+    Money deposit = new Money(SEK, 100);
+
+    //totalpris = 15763 I Minor UNit
+
+    ItemType vegetable = new ItemType("Vegetable", 0.25, deposit, 0);
+    Money tomatoPrice = new Money(SEK, 625);
+    Item tomato = new Item("Tomato", vegetable, tomatoPrice);
+    tempShoppingCart.add(tomato);
+    Money cucumberPrice = new Money(SEK, 1099);
+    Item cucumber = new Item("Cucumber", vegetable, cucumberPrice);
+    tempShoppingCart.add(cucumber);
+    Money onionPrice = new Money(SEK, 755);
+    Item onion = new Item("Onion", vegetable, onionPrice);
+    tempShoppingCart.add(onion);
+
+    ItemType dairy = new ItemType("Dairy", 0.25, deposit, 0);
+    Money milkPrice = new Money(SEK, 1599);
+    Item milk = new Item("Milk", dairy, milkPrice);
+    tempShoppingCart.add(milk);
+    Money cheesePrice = new Money(SEK, 8095);
+    Item cheese = new Item("Cheese", dairy, cheesePrice);
+    tempShoppingCart.add(cheese);
+    Money yoghurtPrice = new Money(SEK, 3590);
+    Item yoghurt = new Item("Yoghurt", dairy, yoghurtPrice);
+    tempShoppingCart.add(yoghurt);
+
+    ArrayList<Deductor> noDeductors = new ArrayList<>();
+
+    Transaction t = new Transaction(tempShoppingCart, noDeductors, customer);
+
+    ArrayList<Integer> customerDenominatorsPaidWith = new ArrayList<>(List.of(200));
+    List<Integer> change = t.payWithCash(cr, customerDenominatorsPaidWith);
+    t.applyDeductors();
+
+    TreeMap<Integer, Integer> expectedInventory = new TreeMap<Integer, Integer>();
+    expectedInventory.put(1, 2);
+    expectedInventory.put(2, 1);
+    expectedInventory.put(5, 2);
+    expectedInventory.put(10, 2);
+    expectedInventory.put(50, 2);
+    expectedInventory.put(100, 2);
+    expectedInventory.put(200, 3);
+    expectedInventory.put(500, 2);
+    expectedInventory.put(1000, 2);
+
+    ArrayList<Integer> expectedChange = new ArrayList<>(List.of(20, 20, 2));
+
+    StringBuilder receipt = t.getReceipt();
+
+    assertAll("Kollar flera saker",
+            () -> assertEquals(157.63, t.getTotalPrice(), "fel pris"),
+            () -> assertEquals(expectedInventory, cr.getInventory(), "fel mängd i kassan"),
+            () -> assertEquals(1, customer.getBonusPoints(), "Fel bonuspoäng i kunds medlemskap"),
+            () -> assertEquals(expectedChange, change, "Kund har fått fel växel"),
+            () -> assertNotNull(receipt, "Inget kvitto finns")
+    );
+}    
+</code></pre>
+            </section>
+            <aside>
+                <h2>Other skills</h2>
+                <article>
+                    <ul>
+                        <li>Swedish B-drivers license</li>
+                        <li>Tools and technology: Git, VSCode as well as other editors, Microsoft Office, AI-tools (Claude, Copilot, ChatGPT, Grok)</li>
+                        <li>Media and production: Adobe Premiere Pro, After Effects, FL Studio, DaVinci Resolve</li>
+                    </ul>
+                </article>
+                <article>
+                    <h3>Languages</h3>
+                    <dl>
+                        <dt>Swedish</dt>
+                        <dd>Fluent</dd>
+                        <dt>English</dt>
+                        <dd>Fluent</dd>
+                        <dt>Spanish</dt>
+                        <dd>Basic</dd>
+                    </dl>
+                </article>
+                <article>
+                    <h3>Programming languages</h3>
+                    <ul>
+                        <li>Java</li>
+                        <li>C</li>
+                        <li>C++</li>
+                        <li>Go</li>
+                        <li>Python</li>
+                        <li>JavaScript</li>
+                        <li>SQL</li>
+                    </ul>
+                </article>
+                <article>
+                    <h3>Web and frameworks</h3>
+                    <ul>
+                        <li>HTML and CSS</li>
+                        <li>Flutter</li>
+                    </ul>
+                </article>
+            </aside>
+        </main>
+        <footer>
+            <address>
+                Address: Nissastigen 37, 128 41 Bagarmossen <br>
+                Tel: <a href="tel:+46708387383">+46708387383</a><br>
+                Mail: <a href="mailto:nilsjohan00@hotmail.com">nilsjohan00@hotmail.com</a></address>
+        </footer>
+    </body>
+</html>

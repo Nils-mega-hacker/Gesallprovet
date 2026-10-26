@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Nils Wiberg">
+        <meta name="description" content="Programming and film projects and work experience - Nils Wiberg.">
+        <link rel="stylesheet" href="main.css">
+
+        <title>Previous Work</title>
+
+    </head>
+    <body>
+        <header>
+            <h1>Previous Work</h1>
+            <nav>
+                <a href="home.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="previousWork.html" aria-current="page">Previous work</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </header>
+        <main class="previousWork-main">
+            
+            <h2 class="projects-heading">Projects</h2>
+            <article class="programming-projects">
+                <h3>Programming Projects</h3>
+
+                <aside>          
+                    <details>
+                        <summary>A remake of the game Snake (C++)</summary>
+                        <figure>
+                            <video id="snakevideo" controls width="500" height="280">
+                                <source src="lib/snake_video.mp4" type="video/mp4">
+                            </video>
+                            <figcaption>Video of the Snake game</figcaption>
+                        </figure>
+                        <h4>Code example</h4>
+                        <p>In SnakeSprite.cpp the function for what to do each tick. Every 5th frame, the snake moves towards the latest pressed key. The snake is divided into a head and a body. The new head is added first in the vector and the last segment is removed if the snake has grown longer than size. This gives the illusion of movement: the snake “crawls” forward. When the snake eats something and size increases, skip pop_back() once, and then it grows. </p>
+                        <pre><code>
+void SnakeSprite::tick(){
+        moveCounter++;
+        if (moveCounter < 5) return;
+        moveCounter = 0;
+        
+        SDL_FPoint newHead = body[0];
+        
+        switch(direction){
+            case Direction::UP:
+                newHead.y -= snakeDimensions;
+                break;
+            case Direction::DOWN:
+                newHead.y += snakeDimensions;
+                break;
+            case Direction::LEFT:
+                newHead.x -= snakeDimensions;
+                break;
+            case Direction::RIGHT:
+                newHead.x += snakeDimensions;
+                break;
+        }
+        
+        if (newHead.x < 0) {
+            newHead.x = cnts::gScreenWidth - snakeDimensions;
+        } else if (newHead.x >= cnts::gScreenWidth) {
+            newHead.x = 0;
+        }
+        
+        if (newHead.y < 0) {
+            newHead.y = cnts::gScreenHeight - snakeDimensions;
+        } else if (newHead.y >= cnts::gScreenHeight) {
+            newHead.y = 0;
+        }
+        
+        for (size_t i = 0; i < body.size(); i++) {
+            if (newHead.x == body[i].x && newHead.y == body[i].y) {
+                engine->gameOver();
+                return;
+            }
+        }
+        
+        body.insert(body.begin(), newHead);
+        
+        if (body.size() > static_cast<size_t>(size)){
+            body.pop_back();
+        }
+        
+        SDL_FRect& r = const_cast<SDL_FRect&>(getRect());
+        r.x = body[0].x;
+        r.y = body[0].y;
+    }
+                        </code></pre>
+                    </details>
+                </aside>  
+                
+                <aside>
+                    <details>
+                        <summary>Multifunctional chat system (Java)</summary>
+                        <p>The program is a chat room, where any number of members can join. When you join, you enter a username and password, if you are a new user you also need to register with an email address, and then receive an email as confirmation. In the chat room itself, you can send text messages, call each other, draw on a shared drawing, send voice messages and send pictures to each other.</p>
+                        <figure>
+                            <img src="lib/chatapp.png" alt="Screenshot of the chat room with two users">
+                            <figcaption>Screenshot from two users</figcaption>
+                        </figure>
+                        <h4>Pseudocode example</h4>
+                        <p>It is in NetworkManager that the login details are checked against the database, and asked for password and email. These are written on an objectoutputstream connected to the socket.</p>
+                        <pre><code>
+  response = read from server
+  if response == "NEW_USER" then
+    pw = input("Create password:")
+    email = input("Provide e-mail:")
+    send pw & email to server
+  else if response == "PASSWORD_REQUIRED" then
+    pw = input("Provide password:")
+    send pw to server
+    loginResult = read from server
+    if loginResult != "LOGIN_OK" then
+      show "Wrong password!"
+      end program
+
+  Start thread to listen for incoming message
+    while connection active:
+      object = read from server
+      callback(object)
+                        </code></pre>
+                    </details>
+                </aside>
+                <aside>
+                    <details>
+                        <summary>Mobile planning app for study groups (Go and Flutter)</summary>
+                        <p>The app takes addresses from your input and calculates where the middle of the addresses is, based on stockholm communal traffic travel time, and suggests a meeting spot where all participants will have an equal travel time. </p>
+                        <div class="screenshots">
+                            <figure>
+                                <img src="lib/mitten1.jpg" alt="The Saved page with saved groups and recent searches">
+                                <figcaption>"Saved" page contains your saved groups and recent searches</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="lib/mitten2.jpg" alt="The home page showing a map with friends' home addresses">
+                                <figcaption>The home page acts as a map, where you can see your friends home addresses</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="lib/mitten3.jpg" alt="The search page where addresses or friends' names are entered">
+                                <figcaption>The search page is where you type in the addresses you want to search with, if you are friends with a user you can write the users name instead of their address, and their home address will be used.</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="lib/mitten4.jpg" alt="Suggested meeting spots shown on a map">
+                                <figcaption>The suggestions are shown on a map</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="lib/mitten5.jpg" alt="Additional information about a suggestion fetched from Google Maps">
+                                <figcaption>Additional information on the suggestions are fetched from google maps API</figcaption>
+                            </figure>
+                        </div>
+                        <h4>Code example</h4>
+                        <p>AllTravelTimesFrom runs a full Dijkstra from start, returning the minimum travel minutes to every reachable stop within maxTravelMinutes. Uses value-typed priority queue items (no per-item heap allocation) and struct state keys (no string allocs). Results are cached in srcCache keyed by vertex index.</p>
+                        <pre><code>
+func (graph *SLGraph) AllTravelTimesFrom(ctx context.Context, start *Vertex, startTime int) (map[uint32]int, bool) {
+    if cached, ok := graph.srcCache.Load(start.idx); ok {
+        return cached.(map[uint32]int), true
+    }
+
+    open := make(pq.PriorityQueue, 0, 4096)
+    heap.Init(&open)
+
+    startKey := pq.MakeKey(start.idx, 0, false)
+    heap.Push(&open, pq.Item{Key: startKey, G: startTime, F: startTime})
+
+    closed := make(map[pq.StateKey]bool, 32768)
+    bestG := make(map[pq.StateKey]int, 32768)
+    bestG[startKey] = startTime
+    bestByStop := make(map[uint32]int, 4096)
+
+    iterations := 0
+    for len(open) > 0 {
+        iterations++
+        if iterations%256 == 0 {
+            select {
+            case <-ctx.Done():
+                plog.Warningf("AllTravelTimesFrom: timeout after %d iterations from %s, returning partial results (%d stops)",
+                    iterations, start.Metadata().StopName, len(bestByStop))
+                return bestByStop, false // false = partiellt
+            default:
+            }
+        }
+
+        current := heap.Pop(&open).(pq.Item)
+        curKey := current.Key
+
+        if closed[curKey] {
+            continue
+        }
+        closed[curKey] = true
+
+        stopIdx := curKey.VertexIdx()
+        travelTime := current.G - startTime
+        if existing, ok := bestByStop[stopIdx]; !ok || travelTime < existing {
+            bestByStop[stopIdx] = travelTime
+        }
+
+        currentStop := graph.vertexByIdx[stopIdx]
+        walked := curKey.Walked()
+        tripID := curKey.Trip
+
+        for _, edge := range currentStop.edges {
+            if edge.Metadata.TransferType == WALK_EDGE && walked {
+                continue
+            }
+            newG := edge.calculateG(current.G, tripID)
+            if newG == -1 || newG > startTime+maxTravelMinutes {
+                continue
+            }
+            var neighborKey pq.StateKey
+            if edge.Metadata.TransferType == WALK_EDGE {
+                neighborKey = pq.MakeKey(edge.dest.idx, 0, true)
+            } else {
+                neighborKey = pq.MakeKey(edge.dest.idx, edge.Metadata.TripID, false)
+            }
+            if best, exists := bestG[neighborKey]; !exists || newG < best {
+                bestG[neighborKey] = newG
+                heap.Push(&open, pq.Item{Key: neighborKey, G: newG, F: newG})
+            }
+        }
+    }
+
+    graph.srcCache.Store(start.idx, bestByStop)
+    return bestByStop, true // true = komplett
+}
+                        </code></pre>
+                    </details>
+                </aside>
+                
+            </article>
+            <article class="film-projects">
+                <h3>Film Projects</h3>
+                    <p>A web series in 4 episodes<br>
+                    <a href="film.html">Watch the trailer in fullscreen</a><br><br>
+                    Dozens of short films
+                    </p>
+            </article>
+
+            <h2>Experience</h2>
+            <section class="work">
+                <h3>Work Experience</h3>
+                <h4>February 2023 - June 2025</h4>
+                <details open>
+                    <summary>Electrical Assistant and Camera Assistant - Freelance</summary>
+                    <p>Worked on long and short productions, including 'Knutby' season 2, 'Lajka' season 2, 'Så länge hjärtat slår', among others. As a film crew member it's important to be able to work in a team, adapt when sudden problems arise, and have a creative mindset.</p>
+                </details>
+                <h4>June 2024 - February 2025</h4>
+                <details open>
+                    <summary>Customer Service - Power</summary>
+                    <p>Helping customers with complaints, troubleshooting home electronics, delivery questions, and other matters such as product recommendations. As a customer service representative you need to be patient, service-minded, and enjoy interacting with all kinds of people.</p>
+                </details>
+                <h4>June 2019 - June 2023</h4>
+                <details open>
+                    <summary>Traveling Consultant - KFX HR-Partner</summary>
+                    <p>As a traveling consultant you travel around and step in for various roles needed by different companies. Some of these roles include receptionist, caretaker, and internal service. Important qualities for this line of work are flexibility, being a quick learner, and being service-minded.</p>
+                </details>
+            </section>
+
+            
+
+        </main>
+        <footer>
+            <address>
+                Address: Nissastigen 37, 128 41 Bagarmossen <br>
+                Tel: <a href="tel:+46708387383">+46708387383</a><br>
+                Mail: <a href="mailto:nilsjohan00@hotmail.com">nilsjohan00@hotmail.com</a></address>
+        </footer>
+        <script src="previousWork.js"></script>
+    </body>
+</html>
