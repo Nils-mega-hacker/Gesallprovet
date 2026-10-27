@@ -1,33 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Nils Wiberg">
-    <meta name="description" content="Shows the trailer for 'Till Slutet'">
-    <link rel="stylesheet" href="main.css">
-    <title>"Till Slutet" Trailer</title>
-</head>
-<body>
-    <video autoplay muted loop id="tillSlutetTrailer" playsinline>
-        <source src="lib/tillSlutetTrailer.mp4" type="video/mp4">
-    </video>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Nils Wiberg">
+        <meta name="description" content="Shows the trailer for 'Till Slutet'">
+        <link rel="stylesheet" href="main.css">
+        <link rel="canonical" href="https://nilswiberg.com/">
+        <meta property="og:title" content="Nils Wiberg">
+        <meta property="og:description" content="Computer science student focused on algorithms, Java and well-tested software.">
+        <meta property="og:image" content="https://nilswiberg.com/lib/preview.png">
 
-    <div class="content">
-        <a href="previousWork.html">← Back to previous work</a>
-        <h1>Till slutet</h1>
-        <p>A webseries in 4 episodes.</p>
-        <button id="myBtn">Pause</button>
-        <label for="volumeSlider">Volume:</label>
-        <input
-            type="range"
-            id="volumeSlider"
-            min="0"
-            max="100"
-            value="0"
-            step="1"
-        >
-    </div>
-    <script src="film.js"></script>
-</body>
+        <title>"Till Slutet" Trailer</title>
+    </head>
+    <body>
+        <video autoplay muted loop id="tillSlutetTrailer" playsinline>
+            <source src="lib/tillSlutetTrailer.mp4" type="video/mp4">
+        </video>
+
+        <div class="content">
+            <a href="previousWork.html">← Back to previous work</a>
+            <h1>Till slutet</h1>
+            <p>A webseries in 4 episodes.</p>
+            <button id="myBtn">Pause</button>
+            <label for="volumeSlider">Volume:</label>
+            <input
+                type="range"
+                id="volumeSlider"
+                min="0"
+                max="100"
+                value="0"
+                step="1"
+            >
+        </div>
+        <script src="film.js"></script>
+    </body>
 </html>
