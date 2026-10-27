@@ -19,6 +19,7 @@
                 <a href="education.html">Education</a>
                 <a href="previousWork.html">Previous work</a>
                 <a href="contact.html" aria-current="page">Contact</a>
+                <a href="aboutMe.html">About Me</a>
             </nav>
         </header>
 
@@ -39,18 +40,18 @@
                             <input type="text" id="fname" name="fname" placeholder="John" 
                             pattern="[\p{L}\-' ]{2,}"
                             title="Enter a name with at least 2 letters"
-                            required>
+                            required autocomplete="given-name">
                         </div>
                         <div class="form-group">
                             <label for="lname">Last name </label>
                             <input type="text" id="lname" name="lname" placeholder="Doe" 
                             pattern="[\p{L}\-' ]{2,}"
                             title="Enter a name with at least 2 letters"
-                            required>
+                            required autocomplete="family-name">
                         </div>
                         <div class="form-group">
                             <label for="email">Mail address </label>
-                            <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                            <input type="email" id="email" name="email" placeholder="name@example.com" required autocomplete="email">
                         </div>
                         <div class="form-group">
                             <label for="website">Website </label>

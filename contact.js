@@ -1,13 +1,16 @@
+//The form submit button sends an email to me via emailJS API
 emailjs.init({ publicKey: "1da5VszGnCnikGmZg" });
 
+//Vars
 const form = document.getElementById("contactForm");
 const status = document.getElementById("formStatus");
 const submitButton = form.querySelector('input[type="submit"]');
 
+//Listener on submit- sends it forward to me
 form.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    // Honeypot: bara bots fyller i det här fältet
+    // Honeypot: only bots will fill out this field
     if (form.company.value !== "") {
         status.textContent = "Thanks! Your message has been sent.";
         return;
